@@ -9,8 +9,8 @@ public class IDRestFacadeImpl implements IDRestFacade {
 
 	@GET
 	@Produces("application/json")
-	public String getId() {
-		return String.format("{id:\"%s\"}", new ObjectId().toHexString());
+	public Id getId() {
+		return new Id(ObjectId.getId());
 	}
 
 }

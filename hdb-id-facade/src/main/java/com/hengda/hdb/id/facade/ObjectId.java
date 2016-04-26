@@ -11,6 +11,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ObjectId implements Comparable<ObjectId>, java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 693520923464758765L;
 	private final int _time;
 	private final int _machine;
 	private final int _inc;
@@ -19,7 +23,6 @@ public class ObjectId implements Comparable<ObjectId>, java.io.Serializable {
 
 	private static AtomicInteger _nextInc = new AtomicInteger((new java.util.Random()).nextInt());
 
-	private static final long serialVersionUID = -4415279469780082174L;
 
 	
 	public ObjectId() {
@@ -31,6 +34,13 @@ public class ObjectId implements Comparable<ObjectId>, java.io.Serializable {
 
 	public static ObjectId get() {
 		return new ObjectId();
+	}
+	
+	public static String getId() {
+		int i = _nextInc.getAndIncrement();
+		int t = (int) (System.currentTimeMillis() / 1000);
+		int m = _genmachine;
+		return toHexString(t, m, i);
 	}
 
 	public static boolean isValid(String s) {
@@ -63,7 +73,25 @@ public class ObjectId implements Comparable<ObjectId>, java.io.Serializable {
 		}
 		return buf.toString();
 	}
+	
+	public static String toHexString(int t, int m, int i){
+		final StringBuilder buf = new StringBuilder(24);
+		for (final byte b : toByteArray(t,m,i)) {
+			buf.append(String.format("%02x", b & 0xff));
+		}
+		return buf.toString();
+	}
 
+	public static byte[] toByteArray(int t, int m, int i) {
+		byte b[] = new byte[12];
+		ByteBuffer bb = ByteBuffer.wrap(b);
+		// by default BB is big endian like we need
+		bb.putInt(t);
+		bb.putInt(m);
+		bb.putInt(i);
+		return b;
+	}
+	
 	public byte[] toByteArray() {
 		byte b[] = new byte[12];
 		ByteBuffer bb = ByteBuffer.wrap(b);
@@ -184,13 +212,10 @@ public class ObjectId implements Comparable<ObjectId>, java.io.Serializable {
 
 	public static void main(String[] args) {
 
-		for (int i = 0; i < 10000000; i++) {
-			try {
-				//Thread.sleep(1000);
-			} catch (Exception e) {
-
-			}
-			System.out.println(new ObjectId().toHexString());
+		System.out.println(new Date().toString());
+		for (int i = 0; i < 1000000; i++) {
+			ObjectId.getId();
 		}
+		System.out.println(new Date().toString());
 	}
 }

@@ -4,5 +4,5 @@ import javax.ws.rs.Path;
 
 @Path("/")
 public interface IDRestFacade {
-	public String getId();
+	public Id getId();
 }
