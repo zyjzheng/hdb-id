@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="hdb-id-facade">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="hdb-id-facade-stub-1.0.0-RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hdb-id-facade-stub/hdb-id-facade-stub">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/hdb-id-facade/target/classes"/>
+        <property name="context-root" value="hdb-id"/>
+    </wb-module>
+</project-modules>
